@@ -1,0 +1,5 @@
+Name: Abu Bakar
+CNIC: 44202-0658898-3
+Age: 22
+Salary: 100000
+Contact Number: 03288251821

@@ -1,0 +1,2 @@
+This is a task2 text file.
+It contains multiple lines of task2 text.
