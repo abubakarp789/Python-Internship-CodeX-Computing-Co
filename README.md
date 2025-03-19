@@ -6,6 +6,7 @@ This repository contains the code and resources for the My Python Internship at 
 
 - **Week 01/**: Contains code and resources for the first week of the internship.
 - **Week 02/**: Contains code and resources for the second week of the internship.
+- **Week 03/**: Contains code and resources for the third week of the internship.
 - **Comming Soon/**: Contains code and resources for the upcoming weeks of the internship.
 
 ## Getting Started
