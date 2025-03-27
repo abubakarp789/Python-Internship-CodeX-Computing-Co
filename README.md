@@ -7,6 +7,7 @@ This repository contains the code and resources for the My Python Internship at 
 - **Week 01/**: Contains code and resources for the first week of the internship.
 - **Week 02/**: Contains code and resources for the second week of the internship.
 - **Week 03/**: Contains code and resources for the third week of the internship.
+- **Week 04/**: Contains code and resources for the fourth week of the internship.
 - **Comming Soon/**: Contains code and resources for the upcoming weeks of the internship.
 
 ## Getting Started
@@ -24,5 +25,3 @@ Navigate to the respective week folders to find the code and resources for each 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-

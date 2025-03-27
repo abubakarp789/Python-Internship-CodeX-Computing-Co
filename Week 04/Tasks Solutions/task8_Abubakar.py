@@ -1,7 +1,7 @@
 import re
 
 # Open the text document
-with open('Week 04/document.txt', 'r') as file:
+with open('Week 04/Tasks Solutions/document.txt', 'r') as file:
     text = file.read()
 
 # Regular expression pattern to match dates in the format MM/DD/YYYY
