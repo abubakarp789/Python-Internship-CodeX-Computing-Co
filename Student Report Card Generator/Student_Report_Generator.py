@@ -1,11 +1,7 @@
-# Student Report Card Generator with Word and PDF Export
-# Author: Abu Bakar
-
-# Import required libraries
-# You need to install these libraries first using:
-# pip install python-docx reportlab
-
 import os
+import json
+from typing import Dict, List, Optional
+from dataclasses import dataclass
 from docx import Document
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
@@ -13,35 +9,32 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
 
-# Create reports directory if it doesn't exist
+# Constants
 REPORTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'reports')
+DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'student_data.json')
 os.makedirs(REPORTS_DIR, exist_ok=True)
 
+@dataclass
 class Student:
-    def __init__(self, name, roll_number):
-        self.name = name
-        self.roll_number = roll_number
-        self.subjects = {}
-        self.total_marks = 0
-        self.average = 0
-        self.grade = ""
-    
-    def add_subject(self, subject, marks):
-        """Add a subject and its marks for the student"""
+    name: str
+    roll_number: str
+    subjects: Dict[str, float]
+    total_marks: float = 0.0
+    average: float = 0.0
+    grade: str = ""
+
+    def add_subject(self, subject: str, marks: float) -> bool:
         try:
             marks = float(marks)
-            if 0 <= marks <= 100:
-                self.subjects[subject] = marks
-                return True
-            else:
-                print("Error: Marks should be between 0 and 100")
-                return False
-        except ValueError:
-            print("Error: Please enter a valid number for marks")
+            if not 0 <= marks <= 100:
+                raise ValueError("Marks must be between 0 and 100")
+            self.subjects[subject] = marks
+            return True
+        except ValueError as e:
+            print(f"Error: {str(e)}")
             return False
-    
-    def calculate_results(self):
-        """Calculate total marks, average, and grade"""
+
+    def calculate_results(self) -> bool:
         if not self.subjects:
             return False
             
@@ -64,31 +57,70 @@ class Student:
         
         return True
 
+    def to_dict(self) -> dict:
+        return {
+            'name': self.name,
+            'roll_number': self.roll_number,
+            'subjects': self.subjects,
+            'total_marks': self.total_marks,
+            'average': self.average,
+            'grade': self.grade
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Student':
+        student = cls(
+            name=data['name'],
+            roll_number=data['roll_number'],
+            subjects=data['subjects']
+        )
+        student.total_marks = data['total_marks']
+        student.average = data['average']
+        student.grade = data['grade']
+        return student
 
 class ReportCardGenerator:
     def __init__(self):
-        self.students = []
-    
-    def add_student(self, name, roll_number):
-        """Create and add a new student"""
-        student = Student(name, roll_number)
+        self.students: List[Student] = []
+        self.load_data()
+
+    def load_data(self) -> None:
+        try:
+            if os.path.exists(DATA_FILE):
+                with open(DATA_FILE, 'r') as f:
+                    data = json.load(f)
+                    self.students = [Student.from_dict(student_data) for student_data in data]
+        except Exception as e:
+            print(f"Error loading data: {e}")
+
+    def save_data(self) -> None:
+        try:
+            with open(DATA_FILE, 'w') as f:
+                json.dump([student.to_dict() for student in self.students], f, indent=4)
+        except Exception as e:
+            print(f"Error saving data: {e}")
+
+    def add_student(self, name: str, roll_number: str) -> Optional[Student]:
+        if self.find_student(roll_number):
+            print(f"Error: Student with roll number {roll_number} already exists.")
+            return None
+            
+        student = Student(name, roll_number, {})
         self.students.append(student)
+        self.save_data()
         return student
-    
-    def find_student(self, roll_number):
-        """Find a student by roll number"""
+
+    def find_student(self, roll_number: str) -> Optional[Student]:
         for student in self.students:
             if student.roll_number == roll_number:
                 return student
         return None
-    
-    def generate_text_report(self, student):
-        """Generate a text report for a student"""
+
+    def generate_text_report(self, student: Student) -> Optional[str]:
         if not student.subjects:
             print("No subjects added for this student.")
             return None
             
-        # Calculate results before generating report
         student.calculate_results()
         
         report = []
@@ -111,9 +143,8 @@ class ReportCardGenerator:
         report.append("=" * 60)
         
         return "\n".join(report)
-    
-    def save_report_to_text_file(self, student):
-        """Save the report card to a text file"""
+
+    def save_report_to_text_file(self, student: Student) -> bool:
         report_text = self.generate_text_report(student)
         if not report_text:
             return False
@@ -127,14 +158,12 @@ class ReportCardGenerator:
         except Exception as e:
             print(f"Error saving text file: {e}")
             return False
-    
-    def save_report_to_word(self, student):
-        """Save the report card as a Word document"""
+
+    def save_report_to_word(self, student: Student) -> bool:
         if not student.subjects:
             print("No subjects added for this student.")
             return False
             
-        # Calculate results before generating report
         student.calculate_results()
         
         try:
@@ -188,14 +217,12 @@ class ReportCardGenerator:
         except Exception as e:
             print(f"Error saving Word document: {e}")
             return False
-    
-    def save_report_to_pdf(self, student):
-        """Save the report card as a PDF document"""
+
+    def save_report_to_pdf(self, student: Student) -> bool:
         if not student.subjects:
             print("No subjects added for this student.")
             return False
             
-        # Calculate results before generating report
         student.calculate_results()
         
         try:
@@ -265,100 +292,156 @@ class ReportCardGenerator:
             print(f"Error saving PDF document: {e}")
             return False
 
+class UserInterface:
+    def __init__(self):
+        self.generator = ReportCardGenerator()
 
-def main():
-    print("STUDENT REPORT CARD GENERATOR")
-    print("=" * 30)
-    
-    generator = ReportCardGenerator()
-    
-    while True:
-        print("\nMenu:")
-        print("1. Add a new student")
-        print("2. Add subjects and marks")
-        print("3. Generate and view report card")
-        print("4. Save report card (Text, Word, PDF)")
-        print("5. Exit")
+    def get_valid_input(self, prompt: str, validation_func) -> str:
+        while True:
+            try:
+                value = input(prompt).strip()
+                if validation_func(value):
+                    return value
+            except Exception as e:
+                print(f"Error: {str(e)}")
+
+    def validate_name(self, name: str) -> bool:
+        if not name:
+            raise ValueError("Name cannot be empty")
+        if not name.replace(' ', '').isalpha():
+            raise ValueError("Name should contain only letters and spaces")
+        return True
+
+    def validate_roll_number(self, roll_number: str) -> bool:
+        if not roll_number:
+            raise ValueError("Roll number cannot be empty")
+        if not roll_number.isalnum():
+            raise ValueError("Roll number should contain only letters and numbers")
+        return True
+
+    def validate_marks(self, marks: str) -> bool:
+        try:
+            marks_float = float(marks)
+            if not 0 <= marks_float <= 100:
+                raise ValueError("Marks must be between 0 and 100")
+            return True
+        except ValueError:
+            raise ValueError("Please enter a valid number for marks")
+
+    def add_student(self) -> None:
+        print("\n=== Add New Student ===")
+        name = self.get_valid_input("Enter student name: ", self.validate_name)
+        roll_number = self.get_valid_input("Enter roll number: ", self.validate_roll_number)
         
-        choice = input("\nEnter your choice (1-5): ")
+        student = self.generator.add_student(name, roll_number)
+        if student:
+            print(f"Student '{name}' added successfully!")
+
+    def add_subjects(self) -> None:
+        print("\n=== Add Subjects and Marks ===")
+        roll_number = self.get_valid_input("Enter student roll number: ", self.validate_roll_number)
+        student = self.generator.find_student(roll_number)
+        
+        if not student:
+            print("Student not found.")
+            return
+            
+        print(f"\nAdding subjects for {student.name}")
+        while True:
+            subject = input("\nEnter subject name (or 'done' to finish): ").strip()
+            if subject.lower() == 'done':
+                break
+                
+            if not subject:
+                print("Subject name cannot be empty")
+                continue
+                
+            marks = self.get_valid_input(f"Enter marks for {subject}: ", self.validate_marks)
+            if student.add_subject(subject, marks):
+                print(f"Subject '{subject}' added successfully!")
+                self.generator.save_data()
+
+    def view_report(self) -> None:
+        print("\n=== View Report Card ===")
+        roll_number = self.get_valid_input("Enter student roll number: ", self.validate_roll_number)
+        student = self.generator.find_student(roll_number)
+        
+        if not student:
+            print("Student not found.")
+            return
+            
+        if not student.subjects:
+            print("No subjects added for this student yet.")
+            return
+            
+        print("\nStudent Report Card:")
+        report_text = self.generator.generate_text_report(student)
+        print(report_text)
+
+    def save_report(self) -> None:
+        print("\n=== Save Report Card ===")
+        roll_number = self.get_valid_input("Enter student roll number: ", self.validate_roll_number)
+        student = self.generator.find_student(roll_number)
+        
+        if not student:
+            print("Student not found.")
+            return
+            
+        if not student.subjects:
+            print("No subjects added for this student yet.")
+            return
+            
+        print("\nSave report card as:")
+        print("1. Text file")
+        print("2. Word document")
+        print("3. PDF document")
+        print("4. All formats")
+        
+        while True:
+            choice = input("Enter your choice (1-4): ").strip()
+            if choice in ['1', '2', '3', '4']:
+                break
+            print("Invalid choice. Please enter 1-4.")
         
         if choice == '1':
-            name = input("Enter student name: ")
-            roll_number = input("Enter roll number: ")
-            student = generator.add_student(name, roll_number)
-            print(f"Student '{name}' added successfully!")
-            
+            self.generator.save_report_to_text_file(student)
         elif choice == '2':
-            roll_number = input("Enter student roll number: ")
-            student = generator.find_student(roll_number)
-            
-            if student:
-                print(f"\nAdding subjects for {student.name}")
-                while True:
-                    subject = input("\nEnter subject name (or 'done' to finish): ")
-                    if subject.lower() == 'done':
-                        break
-                        
-                    marks = input(f"Enter marks for {subject}: ")
-                    if student.add_subject(subject, marks):
-                        print(f"Subject '{subject}' added successfully!")
-            else:
-                print("Student not found.")
-                
+            self.generator.save_report_to_word(student)
         elif choice == '3':
-            roll_number = input("Enter student roll number: ")
-            student = generator.find_student(roll_number)
-            
-            if student:
-                if not student.subjects:
-                    print("No subjects added for this student yet.")
-                    continue
-                    
-                print("\nStudent Report Card:")
-                report_text = generator.generate_text_report(student)
-                print(report_text)
-            else:
-                print("Student not found.")
-                
+            self.generator.save_report_to_pdf(student)
         elif choice == '4':
-            roll_number = input("Enter student roll number: ")
-            student = generator.find_student(roll_number)
-            
-            if student:
-                if not student.subjects:
-                    print("No subjects added for this student yet.")
-                    continue
-                
-                print("\nSave report card as:")
-                print("1. Text file")
-                print("2. Word document")
-                print("3. PDF document")
-                print("4. All formats")
-                
-                save_choice = input("Enter your choice (1-4): ")
-                
-                if save_choice == '1':
-                    generator.save_report_to_text_file(student)
-                elif save_choice == '2':
-                    generator.save_report_to_word(student)
-                elif save_choice == '3':
-                    generator.save_report_to_pdf(student)
-                elif save_choice == '4':
-                    generator.save_report_to_text_file(student)
-                    generator.save_report_to_word(student)
-                    generator.save_report_to_pdf(student)
-                else:
-                    print("Invalid choice.")
-            else:
-                print("Student not found.")
-                
-        elif choice == '5':
-            print("Thank you for using the Student Report Card Generator!")
-            break
-            
-        else:
-            print("Invalid choice. Please try again.")
+            self.generator.save_report_to_text_file(student)
+            self.generator.save_report_to_word(student)
+            self.generator.save_report_to_pdf(student)
 
+    def run(self) -> None:
+        print("STUDENT REPORT CARD GENERATOR")
+        print("=" * 30)
+        
+        while True:
+            print("\nMenu:")
+            print("1. Add a new student")
+            print("2. Add subjects and marks")
+            print("3. View report card")
+            print("4. Save report card")
+            print("5. Exit")
+            
+            choice = input("\nEnter your choice (1-5): ").strip()
+            
+            if choice == '1':
+                self.add_student()
+            elif choice == '2':
+                self.add_subjects()
+            elif choice == '3':
+                self.view_report()
+            elif choice == '4':
+                self.save_report()
+            elif choice == '5':
+                print("Thank you for using the Student Report Card Generator!")
+                break
+            else:
+                print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
-    main()
+    ui = UserInterface()
+    ui.run()
