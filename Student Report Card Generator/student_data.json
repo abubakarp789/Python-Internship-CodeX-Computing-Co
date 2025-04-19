@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Abu Bakar",
+        "roll_number": "41",
+        "subjects": {
+            "PF": 85.0,
+            "OOP": 80.0,
+            "DBMS": 70.0,
+            "DSA": 92.0
+        },
+        "total_marks": 327.0,
+        "average": 81.75,
+        "grade": "A"
+    },
+    {
+        "name": "Jalal",
+        "roll_number": "42",
+        "subjects": {},
+        "total_marks": 0.0,
+        "average": 0.0,
+        "grade": ""
+    },
+    {
+        "name": "Raqib Hayat",
+        "roll_number": "40",
+        "subjects": {
+            "PF": 70.0,
+            "OOP": 85.0,
+            "DBMS": 69.0,
+            "DSA": 90.0
+        },
+        "total_marks": 0.0,
+        "average": 0.0,
+        "grade": ""
+    }
+]
