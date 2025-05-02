@@ -9,6 +9,8 @@ This repository contains the code and resources for my Python Internship at Code
 - **Week 02/**: Contains code and resources for the second week of the internship.
 - **Week 03/**: Contains code and resources for the third week of the internship.
 - **Week 04/**: Contains code and resources for the fourth week of the internship.
+- **Week 05**: Mini project of the internship (Student Report Card Generator).
+- **Week 06/**: Contains code and resources for the sixth week of the internship.
 - **Coming Soon/**: Contains code and resources for the upcoming weeks of the internship.
 
 ### Mini Projects
@@ -36,9 +38,7 @@ Python-Internship-CodeX-Computing-Co/
 ├── Week 03/                  
 ├── Week 04/                 
 ├── Student Report Card Generator/
-|   ├── Student_Report_Generator.py  
-|   ├── reports/
-|       └── Abu Bakar_41_report.pdf
+├── Week 06/
 └── Coming Soon/         
 ```
 
