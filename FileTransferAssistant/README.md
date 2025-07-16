@@ -1,51 +1,58 @@
 # File Transfer Assistant
 
-A professional-grade file transfer application for Windows that simplifies file transfers to external storage devices with advanced features and safeguards.
-
-![File Transfer Assistant Screenshot](screenshot.png)
+A professional desktop application for Windows that simplifies file transfers to external storage devices with advanced features and robust error handling. Built with Python and PySide6, this application provides a modern, user-friendly interface for managing file transfers efficiently.
 
 ## ✨ Features
 
-- 🚀 Automatic external drive detection
-- 📁 Smart file and folder selection with filtering
-- ⚡ Background file transfers with threading
-- 📊 Real-time progress tracking
-- ⏯️ Pause/Resume transfers
-- 🛡️ Safety features (overwrite protection, checksum verification)
-- 🎨 Modern, user-friendly interface with light/dark theme support
-- ⚙️ Comprehensive settings and preferences
-- 🔔 Customizable notifications
-- 📁 Preserve folder structure during transfers
-- 🔍 Advanced file filtering (type, size, date)
+### Core Functionality
+- 🚀 **Automatic Drive Detection**: Automatically detects and lists available external drives
+- 📁 **Intelligent File Selection**: Add individual files or entire folders with recursive directory support
+- ⚡ **Background Processing**: Multi-threaded transfers to keep the UI responsive
+- 📊 **Real-time Progress Tracking**: Visual feedback with progress bars and transfer statistics
+- ⏯️ **Transfer Control**: Pause, resume, or cancel transfers at any time
 
-## 🛠️ Requirements
+### Safety & Reliability
+- 🛡️ **Data Integrity**: Optional checksum verification to ensure file integrity
+- 🔄 **Conflict Resolution**: Smart handling of file name conflicts
+- 📝 **Logging**: Detailed transfer logs for troubleshooting
+- 🔒 **Error Recovery**: Resume interrupted transfers from the point of failure
 
-- **Operating System**: Windows 10/11
+### User Experience
+- 🎨 **Themes**: Built-in light and dark mode support
+- ⚙️ **Customizable Settings**: Configure transfer behavior and UI preferences
+- 🔍 **Advanced Filtering**: Filter files by type, size, or modification date
+- 📁 **Preserve Structure**: Maintain folder hierarchy during transfers
+- 🗂️ **Quick Access**: Save frequently used source and destination folders
+
+## 🛠️ System Requirements
+
+- **Operating System**: Windows 10/11 (64-bit)
 - **Python**: 3.9 or higher
-- **Dependencies**: See [requirements.txt](requirements.txt)
+- **Disk Space**: 50MB free space
+- **Memory**: 4GB RAM recommended
 
-## 🚀 Installation Guide
+## 🚀 Getting Started
 
-### Method 1: Using Git (Recommended)
+### Prerequisites
+
+1. Install Python 3.9 or higher from [python.org](https://www.python.org/downloads/)
+2. Ensure pip is up to date:
+   ```bash
+   python -m pip install --upgrade pip
+   ```
+
+### Installation
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/FileTransferAssistant.git
-   cd FileTransferAssistant
+   git clone https://github.com/abubakarp789/Python-Internship-CodeX-Computing-Co.git
+   cd Python-Internship-CodeX-Computing-Co/FileTransferAssistant
    ```
 
-2. **Create and activate a virtual environment** (recommended):
+2. **Set up a virtual environment** (recommended):
    ```bash
-   # Create virtual environment
    python -m venv venv
-   
-   # Activate virtual environment
-   # Windows Command Prompt:
-   venv\Scripts\activate
-   # Windows PowerShell:
-   # .\venv\Scripts\Activate.ps1
-   # Linux/macOS:
-   # source venv/bin/activate
+   .\venv\Scripts\activate
    ```
 
 3. **Install dependencies**:
@@ -53,191 +60,115 @@ A professional-grade file transfer application for Windows that simplifies file 
    pip install -r requirements.txt
    ```
 
-### Method 2: Direct Installation
+### Running the Application
 
-1. **Download the latest release** from the [Releases](https://github.com/yourusername/FileTransferAssistant/releases) page.
-2. **Extract the ZIP file** to your preferred location.
-3. **Run the application**:
-   - Double-click `FileTransferAssistant.exe` (if using the pre-built executable)
-   - Or run `python -m src` from the command line
+1. **From source**:
+   ```bash
+   python -m src
+   ```
 
-## ⚙️ Settings & Configuration
+2. **Or using the entry point**:
+   ```bash
+   python run.py
+   ```
 
-The application includes a comprehensive settings dialog where you can customize various aspects:
+## 🖥️ User Guide
 
-### Source Folders
-- Set default source folders for quick access
-- Manage up to 3 frequently used folders
+### Main Interface
 
-### File Filters
-- Filter by file types (extensions)
-- Set size limits for transfers
-- Filter files by modification date
+1. **Source Panel** (Left)
+   - Add files/folders using the toolbar buttons
+   - View and manage files in the transfer queue
+   - Remove items or clear the entire list
 
-### Transfer Behavior
-- Choose whether to preserve folder structure
-- Set conflict resolution preferences
-- Enable/disable checksum verification
+2. **Destination Panel** (Right)
+   - Select target drive from the dropdown
+   - Browse to a specific folder
+   - View available space information
 
-### Notifications
-- Toggle popup notifications
-- Enable/disable system tray notifications
-- Sound alerts for completed transfers
+3. **Transfer Controls** (Bottom)
+   - Start/Pause/Resume/Cancel transfers
+   - View progress and transfer speed
+   - Access transfer history and logs
 
-### Appearance
-- Toggle between light and dark themes
-- Customize UI scaling (coming soon)
+### Common Operations
 
-## 📝 Usage
+#### Adding Files/Folders
+1. Click the "Add Files" or "Add Folder" button
+2. Select the items you want to transfer
+3. Use filters to include/exclude specific file types if needed
 
-1. **Select Source**: Choose files/folders to transfer
-2. **Select Destination**: Pick the target external device
-3. **Configure Transfer Options** (optional):
-   - Apply filters
-   - Set transfer speed limits (coming soon)
-   - Choose conflict resolution method
-4. **Start Transfer**: Click the transfer button
-5. **Monitor Progress**: View real-time transfer statistics
+#### Starting a Transfer
+1. Select the destination drive/folder
+2. Review the file list
+3. Click the "Start Transfer" button
+4. Monitor progress in the transfer log
 
-## 🛠️ Development
+#### Pausing/Resuming
+- Click the pause button to temporarily stop transfers
+- Click resume to continue from where you left off
 
-### Running Tests
-```bash
-pytest tests/
+## ⚙️ Configuration
+
+### Settings Dialog
+Access the settings dialog from the menu: `Settings > Preferences`
+
+#### Transfer Settings
+- **Verify Transfers**: Enable checksum verification
+- **Preserve Timestamps**: Keep original file timestamps
+- **Conflict Resolution**: Choose what to do when files exist
+
+#### Interface Settings
+- **Theme**: Light/Dark mode
+- **Language**: Application language
+- **Notifications**: Configure desktop notifications
+
+### Keyboard Shortcuts
+- `Ctrl+O`: Add files
+- `Ctrl+D`: Add folder
+- `Delete`: Remove selected items
+- `F5`: Refresh drive list
+- `F1`: Show help
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Application won't start
+- Ensure all dependencies are installed
+- Check Python version (3.9+ required)
+- Run as administrator if experiencing permission issues
+
+#### Transfers are slow
+- Try disabling checksum verification for large transfers
+- Check for disk I/O bottlenecks
+- Close other disk-intensive applications
+
+### Viewing Logs
+Application logs are stored in:
 ```
-
-### Code Style
-We use Black for code formatting and Flake8 for linting:
-```bash
-black .
-flake8
-```
-
-### Building Executable
-To create a standalone executable:
-```bash
-pip install pyinstaller
-pyinstaller --onefile --windowed --icon=assets/icon.ico src/__main__.py --name FileTransferAssistant
+%APPDATA%\FileTransferAssistant\file_transfer.log
 ```
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details.
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-4. **Install the required dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## 👨‍💻 Author
 
-### Method 2: Direct Download
+**Abu Bakar**  
+Python Developer | CodeX Computing Co. Intern  
+[GitHub](https://github.com/abubakarp789) | [LinkedIn](https://www.linkedin.com/in/abubakar56/) | [Portfolio](https://abubakar056.netlify.app/)
 
-1. Download the source code as a ZIP file and extract it
-2. Open a command prompt in the extracted folder
-3. Follow steps 2-4 from Method 1
-
-## 🖥️ Running the Application
-
-### Option 1: Using run.py (Recommended)
-
-```bash
-python run.py
-```
-
-### Option 2: Using Python module
-
-```bash
-python -m src.main
-```
-
-### Option 3: Install and Run (Development Mode)
-
-1. Install the package in development mode:
-   ```bash
-   pip install -e .
-   ```
-
-2. Run the application:
-   ```bash
-   file-transfer-assistant
-   ```
-
-## 📦 Building a Standalone Executable
-
-To create a single executable file for distribution:
-
-1. Install PyInstaller:
-   ```bash
-   pip install pyinstaller
-   ```
-
-2. Build the executable:
-   ```bash
-   pyinstaller --onefile --windowed --name FileTransferAssistant run.py
-   ```
-
-3. The executable will be created in the `dist` directory.
-
-## 🎮 How to Use
-
-1. **Select Source Files/Folders**:
-   - Click "Add Files" to select individual files
-   - Click "Add Folder" to add an entire folder
-   - Use the quick access panel for common locations
-
-2. **Choose Destination**:
-   - Select the destination drive from the dropdown
-   - Click "Browse" to choose a specific folder
-
-3. **Start Transfer**:
-   - Click "Start" to begin the transfer
-   - Use "Pause/Resume" to control the transfer
-   - Click "Cancel" to stop the transfer
-
-## 🔧 Troubleshooting
-
-- **Missing Dependencies**:
-  ```bash
-  pip install -r requirements.txt
-  ```
-
-- **Permission Errors**:
-  - Run the application as Administrator
-  - Ensure you have write permissions to the destination
-
-- **External Drives Not Detected**:
-  - Ensure the drive is properly connected
-  - Try refreshing the drive list
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-   .\venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Usage
-
-Run the application:
-```bash
-python src/main.py
-```
-
-## Configuration
-
-Application settings are stored in `config/settings.json`. The file will be created automatically with default values on first run.
-
-## License
-
-MIT License - Feel free to use and modify as needed.
+---
+*Part of the Python Internship Program at CodeX Computing Co.*
