@@ -1,67 +1,138 @@
-# Python Internship CodeX Computing Co
+# Python Internship Portfolio - CodeX Computing Co.
 
-This repository contains the code and resources for my Python Internship at CodeX Computing Co. It includes materials for all the weeks of the internship program and my projects.
+Welcome to my Python internship portfolio! This repository showcases my 3-month journey as a Python Development Intern at CodeX Computing Co. It includes all the projects, assignments, and learning materials from my internship program.
 
-## Contents
+## 🚀 Featured Projects
 
-### Weekly Materials
+### 1. File Transfer Assistant
+A professional-grade file transfer application for Windows with a modern interface and advanced features.
 
-- **Week 01/**: Contains code and resources for the first week of the internship.
-- **Week 02/**: Contains code and resources for the second week of the internship.
-- **Week 03/**: Contains code and resources for the third week of the internship.
-- **Week 04/**: Contains code and resources for the fourth week of the internship.
-- **Week 05**: Mini project of the internship (Student Report Card Generator).
-- **Week 06/**: Contains code and resources for the sixth week of the internship.
-- **Week 07/**: Contains code and resources for the seventh week of the internship.
-- **Coming Soon/**: Contains code and resources for the upcoming weeks of the internship.
+**Key Features**:
+- Automatic external drive detection
+- Smart file/folder selection with filtering
+- Background transfers with threading
+- Real-time progress tracking
+- Pause/Resume functionality
+- Safety features (overwrite protection, checksum verification)
+- Light/Dark theme support
 
-### Mini Projects
+[Explore Project →](./FileTransferAssistant/)
 
-- **Student Report Card Generator/**: My first mini project - A comprehensive system for generating student report cards in multiple formats (Text, Word, PDF).
+### 2. Student Report Card Generator
+A comprehensive system for managing student records and generating report cards in multiple formats.
 
-## Getting Started
+**Key Features**:
+- Multi-format report generation (TXT, DOCX, PDF)
+- Student record management
+- Automatic grade calculation
+- Data persistence with JSON
+- Command-line interface
 
-1. Clone the repository:
+[Explore Project →](./Student%20Report%20Card%20Generator/)
 
-```bash
-git clone https://github.com/abubakarp789/Python-Internship-CodeX-Computing-Co.git
-```
+## 📚 Learning Journey
 
-2. Navigate to the desired week or project folder:
+### Weekly Progress
+- **Weeks 1-2**: Python Fundamentals & Object-Oriented Programming
+- **Weeks 3-4**: Advanced Python & Project Planning
+- **Week 5**: Mini Project - Student Report Card Generator
+- **Weeks 6-7**: Desktop Application Development with PyQt6
+- **Final Weeks**: Project Completion & Deployment
 
-```bash
-cd Python-Internship-CodeX-Computing-Co/[Week_or_Project_Folder]
-```
+### Skills Developed
+- **Programming**: Python 3, OOP, Design Patterns
+- **Libraries**: PyQt6, python-docx, reportlab, dataclasses
+- **Tools**: Git, VS Code, Command Line
+- **Concepts**: File I/O, Data Persistence, Error Handling, UI/UX Design
 
-3. Follow the specific instructions in each folder's README for setup and usage.
-
-## Project Structure
+## 🛠️ Project Structure
 
 ```
 Python-Internship-CodeX-Computing-Co/
-├── Week 01/   
-├── Week 02/  
-├── Week 03/  
-├── Week 04/   
-├── Student Report Card Generator/
-├── Week 06/
-├── Week 07/
-└── Coming Soon/   
+├── FileTransferAssistant/      # File Transfer Application
+│   ├── src/                   # Source code
+│   ├── requirements.txt       # Dependencies
+│   └── README.md              # Project documentation
+│
+├── Student Report Card Generator/  # Report Card System
+│   ├── Student_Report_Generator.py
+│   ├── student_data.json
+│   └── README.md
+│
+├── Week 01-07/                # Weekly learning materials
+│   ├── Exercises/
+│   └── Assignments/
+│
+├── LICENSE
+└── README.md                  # This file
 ```
 
-## About the Internship
+## 🚀 Getting Started
 
-This internship with CodeX Computing Co. focuses on developing practical Python programming skills through:
+### Prerequisites
+- Python 3.9 or higher
+- pip (Python package manager)
+- Git (for version control)
 
-- Weekly assignments and exercises
-- Mini projects
-- Real-world application development
+### Setup Instructions
 
-## Author
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/abubakarp789/Python-Internship-CodeX-Computing-Co.git
+   cd Python-Internship-CodeX-Computing-Co
+   ```
 
-**Abu Bakar**
-Python Intern at CodeX Computing Co.
+2. **Set up a virtual environment** (recommended):
+   ```bash
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
+   
+   # Linux/MacOS
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-## License
+3. **Install project dependencies**:
+   ```bash
+   # For File Transfer Assistant
+   cd FileTransferAssistant
+   pip install -r requirements.txt
+   
+   # For Student Report Card Generator
+   cd ../Student Report Card Generator
+   pip install python-docx reportlab
+   ```
+
+## 📝 Usage
+
+Each project contains its own detailed documentation:
+- [File Transfer Assistant Documentation](./FileTransferAssistant/README.md)
+- [Student Report Card Generator Documentation](./Student%20Report%20Card%20Generator/README.md)
+
+## 📊 What I Learned
+
+During this internship, I:
+- Developed two complete Python applications from scratch
+- Gained experience with both CLI and GUI development
+- Learned to work with various file formats and data persistence
+- Understood the importance of code organization and documentation
+- Improved problem-solving and debugging skills
+- Gained experience with version control using Git
+
+## 🤝 Contributing
+
+While this is primarily a portfolio repository, I welcome any feedback or suggestions for improvement. Feel free to open an issue or submit a pull request.
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Abu Bakar**  
+Python Developer | CodeX Computing Co. Intern  
+[GitHub](https://github.com/abubakarp789) | [LinkedIn](https://www.linkedin.com/in/abubakar56/) | [Portfolio](https://abubakar056.netlify.app/)
+
+---
+*This repository documents my learning journey during the Python internship at CodeX Computing Co.*
